@@ -1,0 +1,15 @@
+# Virtual Environment
+venv/
+.env
+
+# __pycache__ etc
+__pycache__/
+*.pyc
+
+# IDEs
+.idea/
+.vscode/
+
+# Ignore large model dumps if they exceed 50-100MB across commits
+# models/*.pkl
+# But preserving it for now since the user wants the production model included

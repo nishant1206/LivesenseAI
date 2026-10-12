@@ -1,0 +1,104 @@
+:root {
+    --bg-main: #f9fafb;
+    --bg-panel: #ffffff;
+    --text-main: #111827;
+    --border-color: #d1d5db;
+    --accent-warning: #ef4444; /* Standard red strictly for alerts */
+    --accent-warning-bg: #fee2e2;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 16px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+header {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+}
+
+h1, h2 {
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+.status-indicator {
+    font-weight: bold;
+}
+
+.panel {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+
+th {
+    background-color: #f3f4f6;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4b5563;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Alert States */
+.row-warning {
+    background-color: var(--accent-warning-bg);
+}
+
+.row-warning td {
+    color: var(--accent-warning);
+    font-weight: bold;
+}
+
+.console-log {
+    background-color: #111827;
+    color: #f9fafb;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 13px;
+    height: 150px;
+    overflow-y: auto;
+    border-radius: 2px;
+    white-space: pre-wrap;
+    text-align: left;
+}

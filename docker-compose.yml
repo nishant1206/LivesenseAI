@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: livesense
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: livesense
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+    command: mosquitto -c /mosquitto.conf
+    volumes:
+      - ./mosquitto.conf:/mosquitto.conf
+
+  api:
+    build: .
+    command: uvicorn src.cloud.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://livesense:password@db:5432/livesense
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - db
+
+  worker:
+    build: .
+    command: python src/cloud/mqtt_worker.py
+    environment:
+      - DATABASE_URL=postgresql://livesense:password@db:5432/livesense
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - db
+      - mosquitto
+
+volumes:
+  postgres_data:

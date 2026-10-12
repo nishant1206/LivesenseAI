@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveSense AI - Fleet Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LiveSense AI: Live Fleet Monitoring</h1>
+            <p>System Status: <span id="conn-status" class="status-indicator">Connecting...</span></p>
+        </header>
+
+        <main>
+            <div class="panel">
+                <h2>Real-Time Telemetry Stream</h2>
+                <div class="table-container">
+                    <table id="telemetry-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Cow ID</th>
+                                <th>X-Mean</th>
+                                <th>Y-Mean</th>
+                                <th>Z-Mean</th>
+                                <th>Total Mobility</th>
+                                <th>SCM Probability</th>
+                                <th>AI Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="telemetry-body">
+                            <!-- Rows will be injected here via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="panel">
+                <h2>System Log</h2>
+                <pre id="system-log" class="console-log">Initializing edge inference pipeline...</pre>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

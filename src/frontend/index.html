@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveSense AI - Enterprise Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header class="header">
+        <h1>LIVESENSE AI // DASHBOARD</h1>
+        <div class="header-controls">
+            <span id="farm-id-display"></span>
+            <button id="logout-btn" class="action-btn" style="display: none;" onclick="logout()">LOGOUT</button>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span id="connection-status">SYSTEM ONLINE</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- AUTHENTICATION VIEW -->
+    <div id="auth-view" class="auth-container">
+        <div class="auth-panel">
+            <h2 id="auth-title">SYSTEM LOGIN</h2>
+            <div id="auth-error" class="error-msg" style="display: none;"></div>
+            <div class="form-group">
+                <label>USERNAME</label>
+                <input type="text" id="auth-username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label>PASSWORD</label>
+                <input type="password" id="auth-password" placeholder="Enter password">
+            </div>
+            <button class="action-btn full-width" id="auth-submit" onclick="submitAuth()">LOGIN</button>
+            <div class="auth-toggle">
+                <span id="auth-toggle-text">No account?</span> 
+                <a href="#" onclick="toggleAuthMode()">Register here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD VIEW -->
+    <div id="dashboard-view" style="display: none;">
+        <div class="critical-alerts" id="critical-alerts-banner" style="display: none;">
+            <strong>SYSTEM ALERT:</strong> ABNORMAL BEHAVIOR DETECTED. SCM PROBABILITY SHIFT.
+        </div>
+
+        <main class="grid-container">
+            <section class="panel feed-panel">
+                <h2>LIVE TELEMETRY FEED (MQTT)</h2>
+                <div class="feed-container" id="feed-container">
+                    <!-- Log entries go here -->
+                </div>
+            </section>
+
+            <section class="panel table-panel">
+                <div class="panel-header">
+                    <h2>EDGE FLEET STATUS</h2>
+                    <button class="action-btn" onclick="openAddCowModal()">+ ADD COW</button>
+                </div>
+                <div class="table-container">
+                    <table id="fleet-table">
+                        <thead>
+                            <tr>
+                                <th>TAG ID</th>
+                                <th>LAST SEEN</th>
+                                <th>MOBILITY SCORE</th>
+                                <th>PREDICTION</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fleet-body">
+                            <!-- Rows go here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="panel ticket-panel">
+                <h2>MEDICAL TICKETS (ACTION REQUIRED)</h2>
+                <div class="table-container">
+                    <table id="tickets-table">
+                        <thead>
+                            <tr>
+                                <th>TICKET ID</th>
+                                <th>COW ID</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tickets-body">
+                            <!-- Rows go here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- CONSULT MODAL -->
+    <div id="consult-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="consult-title">AI CARETAKER // </h3>
+                <button class="close-btn" onclick="closeConsult()">X</button>
+            </div>
+            <div class="chat-history" id="chat-history">
+                <!-- Chat messages go here -->
+            </div>
+            <div class="chat-input-area">
+                <input type="file" id="chat-image" accept="image/*" style="max-width: 120px;">
+                <input type="text" id="chat-input" placeholder="Consult the caretaker... (e.g. 'What is the treatment plan?')" onkeypress="handleChatKey(event)">
+                <button class="action-btn" onclick="sendConsultMessage()">SEND</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD COW MODAL -->
+    <div id="add-cow-modal" class="modal">
+        <div class="modal-content auth-panel" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>REGISTER NEW COW</h3>
+                <button class="close-btn" onclick="closeAddCowModal()">X</button>
+            </div>
+            <div id="add-cow-error" class="error-msg" style="display: none;"></div>
+            <div class="form-group" style="margin-top: 15px;">
+                <label>COW TAG ID</label>
+                <input type="text" id="new-cow-id" placeholder="e.g. TAG-2001">
+            </div>
+            <div class="form-group">
+                <label>COLLAR MAC/ID</label>
+                <input type="text" id="new-collar-id" placeholder="e.g. WASP-MAC-XYZ">
+            </div>
+            <button class="action-btn full-width" onclick="submitAddCow()">REGISTER COW</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
